@@ -1,5 +1,4 @@
 #include "motorSetup.h"
-#include "functionsLibrary.h"
 #include "JoystickDriver.c"
 task main(){
 	while(true){
