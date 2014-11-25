@@ -2,15 +2,11 @@
 #include "motorSetup.h"
 #include "functionsLibrary.h"
 task main(){
-	goRight(90);
-	goLeft(90);
-	straight(0.5, 100);
-	back(2,100);
-	motor[motorF] = 50;
-	motor[motorG] = 50;
-	sleep(500);
-	motor[motorF] = -50;
-	motor[motorG] = -50;
+	motor[motorG] = 20;
+	motor[motorF] = 20;
 	sleep(450);
-	stopMotors(5);
+	stopMotors(1);
+	straight(2.5, 100);
+	goRight(75);
+	straight(2, 100);
 }
