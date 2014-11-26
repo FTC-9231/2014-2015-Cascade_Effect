@@ -9,4 +9,5 @@ task main(){
 	straight(2.5, 100);
 	goRight(75);
 	straight(2, 100);
+	Sandstorm();
 }

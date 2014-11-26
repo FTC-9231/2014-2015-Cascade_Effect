@@ -30,7 +30,9 @@ task main(){
 		motor[motorF] = 0;
 		motor[motorG] = 0;
   }if(joy1Btn(1)){
-  	servo[servo1] = 0;  //servo1pos++;
+  	servo[servo1] = servo1pos;
+  	servo1pos++;
   }else if(joy1Btn(4)){
-  	servo[servo1] = 90; //servo1pos--;
+  	servo[servo1] = servo1pos;
+  	servo1pos--;
 	}}}
