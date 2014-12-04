@@ -2,12 +2,15 @@
 #include "motorSetup.h"
 #include "functionsLibrary.h"
 task main(){
-	motor[motorG] = 20;
-	motor[motorF] = 20;
+	motor[motorG] = 50;
+	motor[motorF] = 50;
 	sleep(450);
 	stopMotors(1);
 	straight(2.5, 100);
-	goRight(75);
-	straight(2, 100);
-	Sandstorm();
+	stopMotors(1);
+	goLeft(90);
+	back(2.7, 100);
+	goLeft(100)
+	back(1.7,100)
+	//Sandstorm();
 }

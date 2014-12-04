@@ -15,7 +15,7 @@
 #include "JoystickDriver.c"
 
 task main(){
-	int servo1pos = ServoValue[servo1];
+	int servo1pos = 0;
 	while(true){
 		getJoystickSettings(joystick);
 		motor[motorD] = joystick.joy1_y1;
