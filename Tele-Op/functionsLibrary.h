@@ -6,7 +6,7 @@ void goRight(int degree){
 //degree in... degrees
 	motor[motorD] = 100;
 	motor[motorE] = -100;
-	Sleep(degree*9.05);
+	sleep(degree*4.525);
 	motor[motorD] = 0;
 	motor[motorE] = 0;
 }
@@ -14,7 +14,7 @@ void goLeft(int degree){
 //degree in... degrees
 	motor[motorD] = -100;
 	motor[motorE] = 100;
-	Sleep(degree*9.05);
+	sleep(degree*4.525);
 	motor[motorD] = 0;
 	motor[motorE] = 0;
 }
@@ -22,7 +22,7 @@ void straight(float time, int speed){
 // Time in seconds, speed in percent
 	motor[motorD] = -speed;
 	motor[motorE] = -speed;
-	Sleep(time*1000);
+	sleep(time*1000);
 	motor[motorD] = 0;
 	motor[motorE] = 0;
 }
@@ -34,7 +34,7 @@ void stopMotors(int time){
 	motor[motorE] = 0;
 	motor[motorF] = 0;
 	motor[motorG] = 0;
-	Sleep(time * 1000);
+	sleep(time * 1000);
 
 }
 
