@@ -35,44 +35,31 @@ void stopMotors(int time){
 	motor[motorF] = 0;
 	motor[motorG] = 0;
 	sleep(time * 1000);
-
 }
 
-int iAbs(int a)
-{
-	if (a <0)
-	{
+int iAbs(int a){
+	if (a <0){
 		return -a;
 	}
 	return a;
 }
 
-int thresholdValue(int threshold, int value)
-{
-	if (iAbs(value)<threshold)
-		{
+int thresholdValue(int threshold, int value){
+	if (iAbs(value)<threshold){
 			value=0;
 		}
 	return value;
 }
 
-int speedFilter(int input, int constantAcceleration, int currentSpeed)
-{
-	if (input>=currentSpeed)
-	{
+int speedFilter(int input, int constantAcceleration, int currentSpeed){
+	if (input>=currentSpeed){
 		currentSpeed+=constantAcceleration;
-		if (currentSpeed>input)
-		{
+		if (currentSpeed>input){
 			currentSpeed=input;
-		}
-	}
-	else
-{
+		}}else{
 	currentSpeed-=constantAcceleration;
-	if (currentSpeed<input)
-	{
+	if (currentSpeed<input){
 		currentSpeed=input;
-	}
-}
+	}}
 	return currentSpeed;
 }

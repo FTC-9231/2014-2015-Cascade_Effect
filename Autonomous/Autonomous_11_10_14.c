@@ -12,7 +12,7 @@ task main(){
 	stopMotors(1);
 	goLeft(90);
 	back(2.7, 50);
-	goLeft(100)
-	back(2, 50)
+	goLeft(110)
+	back(1.7, 50)
 	//Sandstorm();
 }
