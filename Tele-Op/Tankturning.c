@@ -16,23 +16,34 @@
 task main(){
 	int currentSpeedLeft=0;
 	int currentSpeedRight=0;
+	bool reverse;
 	const int maxAcceleration=20;
 	while(true){
 		getJoystickSettings(joystick);
 		const int threshold = 4;
-		motor[motorD] = currentSpeedLeft = speedFilter(thresholdValue(threshold,-joystick.joy1_y1),maxAcceleration,currentSpeedLeft);
-		motor[motorE] = currentSpeedRight = speedFilter(thresholdValue(threshold,-joystick.joy1_y2),maxAcceleration,currentSpeedRight);
-		if(joy1Btn(2) || joy1Btn(7)){
+		currentSpeedRight = speedFilter(thresholdValue(threshold,-joystick.joy1_y2),maxAcceleration,currentSpeedRight);
+		currentSpeedLeft = speedFilter(thresholdValue(threshold,-joystick.joy1_y1),maxAcceleration,currentSpeedLeft);
+		if(joy1Btn(6)){
+		 reverse = true;
+	 	}
+		if(reverse){
+			motor[motorD] = -currentSpeedLeft;
+			motor[motorE] = currentSpeedRight;
+		}else{
+		motor[motorD] = currentSpeedLeft;
+		motor[motorE] = currentSpeedRight;
+	  }
+		if(joy1Btn(2)){
 		motor[motorF] = 20;
 		motor[motorG] = 20;
-	}else if(joy1Btn(3) || joy1Btn(8)){
+	}else if(joy1Btn(3)){
 		motor[motorF] = -20;
 		motor[motorG] = -20;
 	}else{
 		motor[motorF] = 0;
 		motor[motorG] = 0;
-  }if(joy1Btn(1) || joy1Btn(5)){
+  }if(joy1Btn(1)){
   	servo[servo1] = 360;
-  }else if(joy1Btn(4) || joy1Btn(6)){
+  }else if(joy1Btn(4)){
   	servo[servo1] = 90;
 	}}}
