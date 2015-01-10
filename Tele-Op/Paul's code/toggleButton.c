@@ -26,8 +26,8 @@ bool ToggleButton_process(ToggleButton* this)
 	// get the appropriate button value
 	bool button = joy1Btn(this->m_buttonNumber) != 0;
 
-	// if button was down and now it's up, cycle the state of the value to the next one
-	bool changed = (this->m_buttonValue==0 && button);
+	// if button was up and now it's down, cycle the state of the value to the next one
+	bool changed = (this->m_buttonValue==false && button);
 	if (changed)
 		this->m_toggleValue = (this->m_toggleValue+1) % this->m_numStates;
 

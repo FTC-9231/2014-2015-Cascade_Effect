@@ -20,8 +20,8 @@ void goLeft(int degree){
 }
 void straight(float time, int speed){
 // Time in seconds, speed in percent
-	motor[motorD] = -speed;
-	motor[motorE] = -speed;
+	motor[motorD] = speed;
+	motor[motorE] = speed;
 	sleep(time*1000);
 	motor[motorD] = 0;
 	motor[motorE] = 0;

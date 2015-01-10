@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
+#pragma config(Sensor, S3,     ArmOptoSensor,  sensorLightActive)
 #pragma config(Motor,  mtr_S1_C1_1,     leftWheel,     tmotorTetrix, openLoop, reversed, driveLeft)
 #pragma config(Motor,  mtr_S1_C1_2,     rightWheel,    tmotorTetrix, openLoop, driveRight)
 #pragma config(Motor,  mtr_S1_C2_1,     leftArm,       tmotorTetrix, openLoop, driveLeft)
@@ -19,10 +19,7 @@
 
 #define ButtonArmUp ButtonRB
 #define ButtonArmDown ButtonRT
-#define ButtonGateUp ButtonLB
-#define ButtonGateDown ButtonLT
-#define ButtonHookUp ButtonA
-#define ButtonHookDown ButtonB
+#define ButtonArmOverride ButtonX
 
 #define ButtonGateToggle ButtonLB
 #define ButtonHookToggle ButtonLT
@@ -42,6 +39,8 @@
 
 #define WheelMotorRampLimit 5
 #define ArmMotorRampLimit 2
+
+#define ArmOptoThreshold 65
 
 task main()
 {
@@ -91,39 +90,24 @@ task main()
 		// also filter the power value we send to the arm motors when those buttons are pushed
 		short armPower = 0;
 		if (joy1Btn(ButtonArmUp))
-			armPower = RampFilter_process(&rampArm, PowerArmUp);
+			// stop the arm moving up if opto sensor sees black stripe and override button isn't pushed
+			if (SensorValue[ArmOptoSensor] < ArmOptoThreshold  &&  joy1Btn(ButtonArmOverride)==0)
+				armPower = RampFilter_process(&rampArm, 0);
+			else
+				armPower = RampFilter_process(&rampArm, PowerArmUp);
 		else
 		if (joy1Btn(ButtonArmDown))
 			armPower = RampFilter_process(&rampArm, PowerArmDown);
 		motor[leftArm] = armPower;
 		motor[rightArm] = armPower;
 
-
-#if 0
-		// use two buttons to lower and raise hook
-		if (joy1Btn(ButtonHookUp))
-			servo[hook] = AngleHookUp;
-		else
-		if (joy1Btn(ButtonHookDown))
-			servo[hook] = AngleHookDown;
-#else
-		// use one toggle button to lower and raise hook
+		// use a toggle button to lower and raise hook
 		if (ToggleButton_process(&hookTB))
 			servo[hook] = ToggleButton_value(&hookTB) ? AngleHookDown : AngleHookUp;
-#endif
 
-#if 0
-		// use two buttons to lower and raise gate
-		if (joy1Btn(ButtonGateUp))
-			servo[gate] = AngleGateUp;
-		else
-		if (joy1Btn(ButtonGateDown))
-			servo[gate] = AngleGateDown;
-#else
-		// use one toggle button to lower and raise hook
+		// use a toggle button to lower and raise hook
 		if (ToggleButton_process(&gateTB))
 			servo[gate] = ToggleButton_value(&gateTB) ? AngleGateDown : AngleGateUp;
-#endif
 
 	}
 }
